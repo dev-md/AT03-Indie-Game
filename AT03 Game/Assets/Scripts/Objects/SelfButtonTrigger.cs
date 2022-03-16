@@ -5,10 +5,8 @@ using UnityEngine;
 public class SelfButtonTrigger : MonoBehaviour
 {
     public Transform playerTran;
-    public Camera playerCamera;
+    private Camera playerCamera;
     private bool disableSCR;
-
-    private MeshFilter meshChange;
 
     // Start is called before the first frame update
     void Start()
