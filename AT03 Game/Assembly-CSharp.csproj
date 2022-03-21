@@ -59,6 +59,8 @@
     <Compile Include="Assets\Scripts\Player\MouseLook.cs" />
     <Compile Include="Assets\Scripts\Objects\SelfButtonTrigger.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemySCR.cs" />
+    <Compile Include="Assets\Scripts\Player\Interaction.cs" />
+    <Compile Include="Assets\Scripts\Player\HoverInteraction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -1,40 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SelfButtonTrigger : MonoBehaviour
+public class SelfButtonTrigger : MonoBehaviour, IInteractable
 {
-    public Transform playerTran;
-    private Camera playerCamera;
+    //private GameObject canvas;
+    //private GameObject imgObject;
     private bool disableSCR;
 
-    // Start is called before the first frame update
+    public Sprite spriteImange;
+
     void Start()
     {
-        playerTran.GetChild(0).TryGetComponent<Camera>(out playerCamera);
-        disableSCR = false;
+        //canvas = GameObject.Find("Canvas");
+        //imgObject = new GameObject("Hover");
+        //imgObject.SetActive(false);
+
+        //RectTransform trans = imgObject.AddComponent<RectTransform>();
+        //trans.transform.SetParent(canvas.transform); // setting parent
+        //trans.localScale = Vector3.one;
+        //trans.anchoredPosition = new Vector2(0f, 0f); // setting position, will be on center
+        //trans.sizeDelta = new Vector2(100, 100); // custom size
+
+        //Image image = imgObject.AddComponent<Image>();
+        //image.sprite = spriteImange;
+        //imgObject.transform.SetParent(canvas.transform);
+    }
+    public void OnInteract()
+    {
+        ButtonEventManger.confrimIncreaseTotal.Invoke(1);
+        disableSCR = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (disableSCR == false)
+        if (disableSCR)
         {
-            if ((Vector3.Distance(playerTran.transform.position, this.transform.position) < 2.5f))
-            {
-                if (Input.GetKeyDown("e"))
-                {
-                    Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hitTarget, 3f);
-                    if (hitTarget.transform == this.transform)
-                    {
-                        ButtonEventManger.confrimIncreaseTotal.Invoke(1);
-                        disableSCR = true;
-
-                        //this is temp
-                        this.gameObject.SetActive(false);
-                    }
-                }
-            }
+            this.gameObject.SetActive(false);
         }
     }
 }
