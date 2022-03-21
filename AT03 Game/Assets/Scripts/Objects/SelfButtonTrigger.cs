@@ -22,7 +22,7 @@ public class SelfButtonTrigger : MonoBehaviour
         {
             if ((Vector3.Distance(playerTran.transform.position, this.transform.position) < 2.5f))
             {
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetKeyDown("e"))
                 {
                     Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hitTarget, 3f);
                     if (hitTarget.transform == this.transform)
