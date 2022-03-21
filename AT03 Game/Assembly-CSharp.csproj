@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\Enemy\EnemySCR.cs" />
     <Compile Include="Assets\Scripts\Player\Interaction.cs" />
     <Compile Include="Assets\Scripts\Player\HoverInteraction.cs" />
+    <Compile Include="Assets\Scripts\Objects\TestButtonEvents.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

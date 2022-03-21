@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonEventManger : MonoBehaviour, IInteractable
 {
-    private static ButtonEventManger Instance;
+    //private static ButtonEventManger Instance;
 
     public delegate int increaseTotal(int addMore);
     public static increaseTotal confrimIncreaseTotal;

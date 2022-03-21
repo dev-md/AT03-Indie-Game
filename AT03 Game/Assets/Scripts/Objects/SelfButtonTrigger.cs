@@ -8,7 +8,6 @@ public class SelfButtonTrigger : MonoBehaviour, IInteractable
     //private GameObject canvas;
     //private GameObject imgObject;
     private bool disableSCR;
-
     public Sprite spriteImange;
 
     void Start()
