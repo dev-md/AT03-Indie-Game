@@ -76,7 +76,7 @@ public abstract class EnemyBHST : IState
 public class EnemyIdleST : EnemyBHST
 {
     private float _time = -1;
-    private Vector2 idleTimeRange = new Vector2(1f,3f);
+    private Vector2 idleTimeRange = new Vector2(3f,10f);
     private float idleTime = 0;
 
 

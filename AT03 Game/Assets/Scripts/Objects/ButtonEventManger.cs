@@ -8,6 +8,7 @@ public class ButtonEventManger : MonoBehaviour, IInteractable
 
     public delegate int increaseTotal(int addMore);
     public static increaseTotal confrimIncreaseTotal;
+
     //confrimIncreaseTotal.Invoke(1);
     private bool disableSCR;
     private int totalMax;
@@ -32,6 +33,7 @@ public class ButtonEventManger : MonoBehaviour, IInteractable
         if (totalMax > 2)
         {
             disableSCR = true;
+            ButtonEventManger.confrimIncreaseTotal.Invoke(-totalMax);
         }
         else
         {
