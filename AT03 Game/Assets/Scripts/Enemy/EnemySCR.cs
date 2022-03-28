@@ -203,7 +203,7 @@ public class EnemyChaseST : EnemyBHST
         //    _Instance.SetState(new EnemyWanderST(_Instance));
         //}
 
-        if(Vector3.Distance(_Instance.transform.position, _Instance.playerTran.position) > _Instance.viewRadius*2)
+        if(Vector3.Distance(_Instance.transform.position, _Instance.playerTran.position) > _Instance.viewRadius*4.5f)
         {
             _Instance.SetState(new EnemyIdleST(_Instance));
         }

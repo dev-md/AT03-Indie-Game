@@ -12,14 +12,33 @@ public class ButtonEventManger : MonoBehaviour, IInteractable
     //confrimIncreaseTotal.Invoke(1);
     private bool disableSCR;
     private int totalMax;
+    private Outline outlineObject;
 
     private void Awake()
     {
         confrimIncreaseTotal += AddTotal;
+        outlineObject = GetComponent<Outline>();
+        outlineObject.enabled = false;
     }
     private void Start()
     {
         disableSCR = false;
+    }
+
+    private void OnMouseOver()
+    {
+        //Debug.Log("LOOK AT ME");
+        if (outlineObject.enabled == false)
+        {
+            outlineObject.enabled = true;
+        }
+    }
+    private void OnMouseExit()
+    {
+        if (outlineObject.enabled == true)
+        {
+            outlineObject.enabled = false;
+        }
     }
 
     private int AddTotal(int num)
@@ -33,7 +52,7 @@ public class ButtonEventManger : MonoBehaviour, IInteractable
         if (totalMax > 2)
         {
             disableSCR = true;
-            ButtonEventManger.confrimIncreaseTotal.Invoke(-totalMax);
+            confrimIncreaseTotal.Invoke(-totalMax);
         }
         else
         {

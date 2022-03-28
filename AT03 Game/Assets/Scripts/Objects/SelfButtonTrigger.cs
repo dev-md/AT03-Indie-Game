@@ -8,23 +8,26 @@ public class SelfButtonTrigger : MonoBehaviour, IInteractable
     //private GameObject canvas;
     //private GameObject imgObject;
     private bool disableSCR;
-    public Sprite spriteImange;
-
-    void Start()
+    public Outline outlineObject;
+    private void Awake()
     {
-        //canvas = GameObject.Find("Canvas");
-        //imgObject = new GameObject("Hover");
-        //imgObject.SetActive(false);
-
-        //RectTransform trans = imgObject.AddComponent<RectTransform>();
-        //trans.transform.SetParent(canvas.transform); // setting parent
-        //trans.localScale = Vector3.one;
-        //trans.anchoredPosition = new Vector2(0f, 0f); // setting position, will be on center
-        //trans.sizeDelta = new Vector2(100, 100); // custom size
-
-        //Image image = imgObject.AddComponent<Image>();
-        //image.sprite = spriteImange;
-        //imgObject.transform.SetParent(canvas.transform);
+        outlineObject = GetComponent<Outline>();
+        outlineObject.enabled = false;
+    }
+    private void OnMouseOver()
+    {
+        //Debug.Log("LOOK AT ME");
+        if (outlineObject.enabled == false)
+        {
+            outlineObject.enabled = true;
+        }
+    }
+    private void OnMouseExit()
+    {
+        if (outlineObject.enabled == true)
+        {
+            outlineObject.enabled = false;
+        }
     }
     public void OnInteract()
     {
