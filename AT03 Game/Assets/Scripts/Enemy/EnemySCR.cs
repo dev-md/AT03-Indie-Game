@@ -91,7 +91,7 @@ public class EnemyIdleST : EnemyBHST
         _Instance._Agent.isStopped = true;
         idleTime = Random.Range(idleTimeRange.x,idleTimeRange.y);
         _time = 0;
-        Debug.Log(idleTime);
+        //Debug.Log(idleTime);
     }
     public override void OnStateUpdate()
     {
@@ -134,7 +134,7 @@ public class EnemyWanderST : EnemyBHST
     {
         _Instance._Agent.speed = wanderSpeed;
         
-        Debug.Log("wander start");
+        //Debug.Log("wander start");
         //
         _Instance._Agent.isStopped = false;
         Vector3 randomPosInBounds = new Vector3
@@ -150,7 +150,7 @@ public class EnemyWanderST : EnemyBHST
 
     public override void OnStateExit()
     {
-        Debug.Log("wander End");
+        //Debug.Log("wander End");
     }
 
     public override void OnStateUpdate()
