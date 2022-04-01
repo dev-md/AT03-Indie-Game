@@ -93,42 +93,6 @@ public class EnemySCR : FiniteStateMachine
         }
     }
 
-    private Vector3 FindSpot(Vector3 targetPOS)
-    {
-        if (foundPos == false)
-        {
-            Vector3 randomPosInBounds = new Vector3
-            (
-            Random.Range(this.bounds.extents.x, this.bounds.extents.x),
-            this.bounds.center.y,
-            Random.Range(-this.bounds.extents.z, this.bounds.extents.z)
-            );
-            targetPOS = randomPosInBounds;
-
-            RaycastHit hitCast;
-            Ray downRay = new Ray(this.transform.position, -Vector3.up);
-            Debug.DrawRay(this.transform.position, -Vector3.up, Color.blue);
-            Debug.Log("shit");
-
-            if (Physics.Raycast(downRay, out hitCast))
-            {
-                float errorhieght = this.bounds.center.y - hitCast.distance;
-                if (errorhieght > 0)
-                {
-                    targetPOS.y = errorhieght + 1f;
-                    this._Agent.SetDestination(targetPOS);
-                    foundPos = true;
-                }
-                else
-                {
-                    return targetPOS;
-                }
-
-            }
-        }
-
-        return new Vector3(0f, 0f, 0f);
-    }
 }
 
 //------------------------------------------------------
@@ -212,6 +176,7 @@ public class EnemyWanderST : EnemyBHST
 {
     private Vector3 targetPOS;
     private float wanderSpeed = 3.5f;
+    private bool foundPos = false;
     public EnemyWanderST(EnemySCR instance, Transform playerTran) : base(instance, playerTran)
     {
 
@@ -229,6 +194,7 @@ public class EnemyWanderST : EnemyBHST
     public override void OnStateExit()
     {
         //Debug.Log("wander End");
+        foundPos = false;
     }
 
     public override void OnStateUpdate()
@@ -236,6 +202,26 @@ public class EnemyWanderST : EnemyBHST
         //
         //Debug.Log(Vector3.Distance(targetPOS, _Instance.transform.position));
         //Debug.Log(_Instance._Agent.stoppingDistance);
+        if (foundPos == false)
+        {
+            //Debug.Log("Check");
+            Vector3 randomPosInBounds = new Vector3
+            (
+            Random.Range(-_Instance.bounds.extents.x, _Instance.bounds.extents.x),
+            _Instance.transform.position.y,
+            Random.Range(-_Instance.bounds.extents.z, _Instance.bounds.extents.z)
+            );
+            targetPOS = randomPosInBounds;
+            Debug.Log(targetPOS);
+
+            NavMeshHit hitMesh;
+            if (NavMesh.SamplePosition(targetPOS, out hitMesh, 20f, NavMesh.AllAreas))
+            {
+                _Instance._Agent.SetDestination(hitMesh.position);
+                foundPos = true;
+            }
+        }
+
         if (Vector3.Distance(_Instance.transform.position, _PlayerTran.position) <= _Instance.viewRadius)
         {
             _Instance.SetState(new EnemyChaseST(_Instance, _PlayerTran));
