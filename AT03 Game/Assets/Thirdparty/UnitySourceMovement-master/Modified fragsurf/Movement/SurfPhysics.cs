@@ -151,7 +151,7 @@ namespace Fragsurf.Movement {
                float horizontalStep = forwardDistance;
                float stepAngle = Vector3.Angle(Vector3.forward, new Vector3(0f, verticalStep, horizontalStep));
 
-               Debug.Log("Angle: " + stepAngle + "; " + Time.fixedTime);
+               //Debug.Log("Angle: " + stepAngle + "; " + Time.fixedTime);
                //if (stepAngle > surfer.moveData.slopeLimit)
                //return false;
 

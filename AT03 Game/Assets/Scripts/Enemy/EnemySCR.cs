@@ -9,25 +9,55 @@ public class EnemySCR : FiniteStateMachine
     public Bounds bounds;
     //245
     public float viewRadius = 7f;
-    [SerializeField] private Transform playerTran;
+    [SerializeField] private GameObject privatePlayerTran;
+    public GameObject playerGameObject { get; private set; }
+    private Transform playerTran;
     public NavMeshAgent _Agent { get; private set; }
 
     private Outline outlineObject;
     private bool isStunned;
-    private bool foundPos = false;
+
+    //public Animator animator { get; private set; }
+    public AudioSource audioSource { get; private set; }
+
+
+    public EnemyIdleST enemyIdle { get; private set; }
+    public EnemyChaseST enemyChase { get; private set;}
+    public EnemyWanderST enemyWander { get; private set; }
+    public EnemyStunST enemyStun { get; private set; }
+
 
 
     // Start is called before the first frame update
 
     protected override void Awake()
     {
-        entryState = new EnemyIdleST(this,playerTran);
+        playerGameObject = privatePlayerTran;
+        playerTran = playerGameObject.transform;
+
+
+        enemyIdle = new EnemyIdleST(this,playerTran,enemyIdle);
+        enemyChase = new EnemyChaseST(this, playerTran,enemyChase);
+        enemyWander = new EnemyWanderST(this, playerTran,enemyWander);
+        enemyStun = new EnemyStunST(this, playerTran);
+
+        entryState = enemyIdle;
 
         //mainCurState = entryState;
         if (TryGetComponent(out NavMeshAgent agent) == true)
         {
             _Agent = agent;
         }
+
+        if(TryGetComponent(out AudioSource aSrc) == true)
+        {
+            AudioSource audioSource = aSrc;
+        }
+
+        //if (transform.GetChild(0).TryGetComponent(out Animator anim) == true)
+        //{
+        //    animator = anim;
+        //}
 
         outlineObject = GetComponent<Outline>();
         outlineObject.enabled = false;
@@ -45,7 +75,7 @@ public class EnemySCR : FiniteStateMachine
     {
         base.Update();
 
-        if ((Input.GetButtonDown("Fire1")) && (outlineObject.enabled == true))
+        if ((Input.GetButtonDown("Use")) && (outlineObject.enabled == true))
         {
             //Debug.Log("Stunned");
             SetState(new EnemyStunST(this,playerTran));
@@ -124,16 +154,23 @@ public abstract class EnemyBHST : IState
 //------------------------------------------------------
 //------------------------------------------------------
 
+[System.Serializable]
 public class EnemyIdleST : EnemyBHST
 {
+    [SerializeField]
+    private Vector2 idleTimeRange = new Vector2(3f, 10f);
+
+    //ONCE THIS IS FIXED, DO THIS TO THE REST
+    //private AudioCLip idleSoundClip
+
     private float _time = -1;
-    private Vector2 idleTimeRange = new Vector2(3f,10f);
     private float idleTime = 0;
 
 
-    public EnemyIdleST(EnemySCR instance, Transform playerTran) : base(instance, playerTran)
+    public EnemyIdleST(EnemySCR instance, Transform playerTran, EnemyIdleST idle) : base(instance, playerTran)
     {
-        //
+        idleTimeRange = idle.idleTimeRange;
+        //idleSoundClip = idle.idleSoundClip;
     }
     
     public override void OnStateEnter()
@@ -143,12 +180,16 @@ public class EnemyIdleST : EnemyBHST
         idleTime = Random.Range(idleTimeRange.x,idleTimeRange.y);
         _time = 0;
         //Debug.Log(idleTime);
+
+        //_Instance.animator.SetBool("IsMoving", false);
+
+        //_Instance.audioSource.PlayOneShot(idleSoundClip);
     }
     public override void OnStateUpdate()
     {
         if (Vector3.Distance(_Instance.transform.position, _PlayerTran.position) <= _Instance.viewRadius)
         {
-            _Instance.SetState(new EnemyChaseST(_Instance, _PlayerTran));
+            _Instance.SetState(_Instance.enemyChase);
         }
 
         if (_time >= 0)
@@ -157,7 +198,7 @@ public class EnemyIdleST : EnemyBHST
             if (_time >= idleTime)
             {
                 //
-                _Instance.SetState(new EnemyWanderST(_Instance, _PlayerTran));
+                _Instance.SetState(_Instance.enemyWander);
 
             }
         }
@@ -172,14 +213,16 @@ public class EnemyIdleST : EnemyBHST
 }
 
 //------------------------------------------------------
+[System.Serializable]
 public class EnemyWanderST : EnemyBHST
 {
+    [SerializeField] 
+    private float wanderSpeed = 7f;
     private Vector3 targetPOS;
-    private float wanderSpeed = 3.5f;
     private bool foundPos = false;
-    public EnemyWanderST(EnemySCR instance, Transform playerTran) : base(instance, playerTran)
+    public EnemyWanderST(EnemySCR instance, Transform playerTran, EnemyWanderST wander) : base(instance, playerTran)
     {
-
+        wanderSpeed = wander.wanderSpeed;
     }
 
     public override void OnStateEnter()
@@ -189,6 +232,9 @@ public class EnemyWanderST : EnemyBHST
         Debug.Log("wander start");
         //
         _Instance._Agent.isStopped = false;
+
+        //_Instance.animator.SetBool("IsChasing", false);
+        //_Instance.animator.SetBool("IsMoving", true);
     }
 
     public override void OnStateExit()
@@ -215,39 +261,45 @@ public class EnemyWanderST : EnemyBHST
             Debug.Log(targetPOS);
 
             NavMeshHit hitMesh;
-            if (NavMesh.SamplePosition(targetPOS, out hitMesh, 20f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(targetPOS, out hitMesh, 40f, NavMesh.AllAreas))
             {
                 _Instance._Agent.SetDestination(hitMesh.position);
+                targetPOS = hitMesh.position;
                 foundPos = true;
             }
         }
 
         if (Vector3.Distance(_Instance.transform.position, _PlayerTran.position) <= _Instance.viewRadius)
         {
-            _Instance.SetState(new EnemyChaseST(_Instance, _PlayerTran));
+            _Instance.SetState(_Instance.enemyChase);
         }
  
         if (Vector3.Distance(new Vector3(targetPOS.x, _Instance.transform.position.y, targetPOS.z), _Instance.transform.position) <= _Instance._Agent.stoppingDistance)
         {
             //Debug.Log("AHOY IDLE");
-            _Instance.SetState(new EnemyIdleST(_Instance, _PlayerTran));
+            _Instance.SetState(_Instance.enemyIdle);
         }
     }
 }
 
+[System.Serializable]
 public class EnemyChaseST : EnemyBHST
 {
-    private float chaseSpeed = 10f;
+    [SerializeField]
+    private float chaseSpeed = 13f;
 
-    public EnemyChaseST(EnemySCR instance, Transform playerTran) : base(instance, playerTran)
+    public EnemyChaseST(EnemySCR instance, Transform playerTran, EnemyChaseST chase) : base(instance, playerTran)
     {
-
+        chaseSpeed = chase.chaseSpeed;
     }
 
     public override void OnStateEnter()
     {
         _Instance._Agent.speed = chaseSpeed;
         _Instance._Agent.isStopped = false;
+
+        //_Instance.animator.SetBool("IsMoving", false);
+        //_Instance.animator.SetBool("IsChasing", true);
         Debug.Log("AHOY!");
     }
 
@@ -269,17 +321,17 @@ public class EnemyChaseST : EnemyBHST
 
         if(Vector3.Distance(_Instance.transform.position, _PlayerTran.position) > _Instance.viewRadius*4.5f)
         {
-            _Instance.SetState(new EnemyIdleST(_Instance, _PlayerTran));
+            _Instance.SetState(_Instance.enemyIdle);
         }
 
         _Instance._Agent.SetDestination(_PlayerTran.position);
     }
 }
 
+
 public class EnemyStunST : EnemyBHST
 {
     private float _time = -1;
-    private Vector2 idleTimeRange = new Vector2(3f, 10f);
     private float idleTime = 0;
 
     public EnemyStunST(EnemySCR instance, Transform playerTran) : base(instance, playerTran)
@@ -309,7 +361,7 @@ public class EnemyStunST : EnemyBHST
             if (_time >= idleTime)
             {
                 //
-                _Instance.SetState(new EnemyWanderST(_Instance, _PlayerTran));
+                _Instance.SetState(_Instance.enemyIdle);
 
             }
         }
