@@ -55,6 +55,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Objects\EndTrigger.cs" />
     <Compile Include="Assets\Thirdparty\QuickOutline\Scripts\Outline.cs" />
+    <Compile Include="Assets\Scripts\Ui\MenuTempSCR.cs" />
+    <Compile Include="Assets\Scripts\Ui\MenuNav.cs" />
+    <Compile Include="Assets\Scripts\Ui\MenuButton.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Objects\ButtonEventManger.cs" />
     <Compile Include="Assets\Scripts\Player\Interaction.cs" />
@@ -64,9 +67,21 @@
     <Compile Include="Assets\Scripts\Player\MouseLook.cs" />
     <Compile Include="Assets\Scripts\Objects\SelfButtonTrigger.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemySCR.cs" />
-    <Compile Include="Assets\Scripts\Ui\MenuButton.cs" />
-    <Compile Include="Assets\Scripts\Ui\MenuNav.cs" />
-    <Compile Include="Assets\Scripts\Ui\MenuTempSCR.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\TraceUtil\Trace.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\TraceUtil\Tracer.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\CameraWaterCheck.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\ISurfControllable.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Extensions\VectorExtensions.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\InputButtons.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Water.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\SurfController.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\SurfPhysics.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Extensions\IntExtensions.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\MovementConfig.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\MoveData.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\PlayerAiming.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Ladder.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\SurfCharacter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Thirdparty\QuickOutline\Resources\Shaders\OutlineMask.shader" />
