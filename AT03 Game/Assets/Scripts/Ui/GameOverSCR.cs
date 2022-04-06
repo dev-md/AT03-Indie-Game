@@ -8,6 +8,7 @@ public class GameOverSCR : MonoBehaviour
     private EnemySCR enemy;
 
     [SerializeField] private GameObject gameoverCanvas;
+    [SerializeField] private GameObject playerGmVar;
     // Start is called before the first frame update
 
     private void Awake()
@@ -16,8 +17,15 @@ public class GameOverSCR : MonoBehaviour
     }
     void Start()
     {
-        TryGetComponent<EnemySCR>(out enemy);
-        playerGame = enemy.playerGameObject;
+        if (playerGmVar == null)
+        {
+            TryGetComponent<EnemySCR>(out enemy);
+            playerGame = enemy.playerGameObject;
+        }
+        else
+        {
+            playerGame = playerGmVar;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -25,7 +33,12 @@ public class GameOverSCR : MonoBehaviour
         if (Vector3.Distance(transform.position, playerGame.transform.position) < 2f)
         {
             gameoverCanvas.SetActive(true);
-            enemy.playerGameObject.SetActive(false);
+            playerGame.SetActive(false);
+        }
+        else if (playerGame == other.gameObject)
+        {
+            gameoverCanvas.SetActive(true);
+            playerGame.SetActive(false);
         }
     }
 }

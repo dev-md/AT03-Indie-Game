@@ -16,6 +16,7 @@ public class EnemySCR : FiniteStateMachine
 
     private Outline outlineObject;
     private bool isStunned;
+    private SphereCollider stunCol;
 
     //public Animator animator { get; private set; }
     public AudioSource audioSource { get; private set; }
@@ -52,6 +53,11 @@ public class EnemySCR : FiniteStateMachine
         {
             audioSource = aSrc;
         }
+        if (TryGetComponent(out SphereCollider sphCol) == true)
+        {
+            stunCol = sphCol;
+            stunCol.enabled = true;
+        }
 
         //if (transform.GetChild(0).TryGetComponent(out Animator anim) == true)
         //{
@@ -79,6 +85,7 @@ public class EnemySCR : FiniteStateMachine
             //Debug.Log("Stunned");
             SetState(new EnemyStunST(this,playerTran));
             isStunned = true;
+            stunCol.enabled = false;
             StartCoroutine(StunTimer());
         }
     }
@@ -87,6 +94,7 @@ public class EnemySCR : FiniteStateMachine
     {
         yield return new WaitForSeconds(4);
         isStunned = false;
+        stunCol.enabled = true;
     }
 
     protected override void OnDrawGizmos()
