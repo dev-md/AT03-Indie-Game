@@ -5727,13 +5727,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307543754}
-  m_LocalRotation: {x: 0.15304591, y: -0.6903456, z: 0.15304591, w: 0.6903456}
+  m_LocalRotation: {x: 0.15394944, y: -0.69014466, z: 0.15394944, w: 0.69014466}
   m_LocalPosition: {x: 48.75, y: 34.37, z: -8.44}
   m_LocalScale: {x: 3, y: 1, z: 39.5208}
   m_Children: []
   m_Father: {fileID: 261845508}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 25, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 25.15, y: -90, z: 0}
 --- !u!1001 &1338328702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6119,7 +6119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1472149492}
   m_LocalRotation: {x: 0.15957603, y: -0.659576, z: 0.14622447, w: 0.719801}
-  m_LocalPosition: {x: 73.33, y: 46.65, z: -22.12}
+  m_LocalPosition: {x: 73.51, y: 46.73, z: -22.14}
   m_LocalScale: {x: 3, y: 1, z: 25}
   m_Children: []
   m_Father: {fileID: 261845508}
@@ -6303,13 +6303,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477351802}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 85.59, y: 52.04, z: -23.44}
+  m_LocalRotation: {x: 0, y: 0, z: -0.21643952, w: 0.97629607}
+  m_LocalPosition: {x: 86.06, y: 51.38, z: -23.07}
   m_LocalScale: {x: 3, y: 1, z: 3}
   m_Children: []
   m_Father: {fileID: 261845508}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -25}
 --- !u!65 &1477351804
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7461,7 +7461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784294387}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 67.91, y: 41.69, z: -8.41}
+  m_LocalPosition: {x: 67.91, y: 41.713, z: -8.41}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 261845508}
@@ -8701,6 +8701,13 @@ MonoBehaviour:
     m_Extent: {x: 150, y: 2, z: 150}
   viewRadius: 7
   privatePlayerTran: {fileID: 5467285085103118176}
+  enemyIdle:
+    idleTimeRange: {x: 3, y: 10}
+    idleSoundClip: {fileID: 8300000, guid: 1a199e667e64212428bdf3372558473f, type: 3}
+  enemyChase:
+    chaseSpeed: 7
+  enemyWander:
+    wanderSpeed: 13
 --- !u!1 &4995663020719454983
 GameObject:
   m_ObjectHideFlags: 0
@@ -8749,9 +8756,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 3.5
-  m_Acceleration: 10
+  m_Acceleration: 60
   avoidancePriority: 50
-  m_AngularSpeed: 10
+  m_AngularSpeed: 30
   m_StoppingDistance: 0.55
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -8768,7 +8775,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4995663020719454983}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.46, y: 28.28, z: 29.98}
+  m_LocalPosition: {x: 100.34, y: 54.08, z: -23.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 531069114149528592}
@@ -9005,7 +9012,7 @@ MonoBehaviour:
   laddersEnabled: 0
   supportAngledLadders: 0
   useStepOffset: 1
-  stepOffset: 0.35
+  stepOffset: 0.45
   movementConfig:
     autoBhop: 1
     gravity: 20

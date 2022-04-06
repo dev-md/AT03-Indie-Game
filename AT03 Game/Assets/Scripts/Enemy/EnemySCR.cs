@@ -21,11 +21,10 @@ public class EnemySCR : FiniteStateMachine
     public AudioSource audioSource { get; private set; }
 
 
-    public EnemyIdleST enemyIdle { get; private set; }
-    public EnemyChaseST enemyChase { get; private set;}
-    public EnemyWanderST enemyWander { get; private set; }
-    public EnemyStunST enemyStun { get; private set; }
-
+    public EnemyIdleST enemyIdle;
+    public EnemyChaseST enemyChase;
+    public EnemyWanderST enemyWander;
+    public EnemyStunST enemyStun;
 
 
     // Start is called before the first frame update
@@ -129,6 +128,7 @@ public class EnemySCR : FiniteStateMachine
 //------------------------------------------------------
 //------------------------------------------------------
 
+
 public abstract class EnemyBHST : IState
 {
     protected EnemySCR _Instance { get; private set; }
@@ -161,7 +161,8 @@ public class EnemyIdleST : EnemyBHST
     private Vector2 idleTimeRange = new Vector2(3f, 10f);
 
     //ONCE THIS IS FIXED, DO THIS TO THE REST
-    //private AudioCLip idleSoundClip
+    [SerializeField]
+    private AudioClip idleSoundClip;
 
     private float _time = -1;
     private float idleTime = 0;
@@ -170,7 +171,7 @@ public class EnemyIdleST : EnemyBHST
     public EnemyIdleST(EnemySCR instance, Transform playerTran, EnemyIdleST idle) : base(instance, playerTran)
     {
         idleTimeRange = idle.idleTimeRange;
-        //idleSoundClip = idle.idleSoundClip;
+        idleSoundClip = idle.idleSoundClip;
     }
     
     public override void OnStateEnter()
@@ -180,10 +181,10 @@ public class EnemyIdleST : EnemyBHST
         idleTime = Random.Range(idleTimeRange.x,idleTimeRange.y);
         _time = 0;
         //Debug.Log(idleTime);
-
         //_Instance.animator.SetBool("IsMoving", false);
 
-        //_Instance.audioSource.PlayOneShot(idleSoundClip);
+        _Instance.audioSource.PlayOneShot(idleSoundClip);
+
     }
     public override void OnStateUpdate()
     {
@@ -229,7 +230,7 @@ public class EnemyWanderST : EnemyBHST
     {
         _Instance._Agent.speed = wanderSpeed;
         
-        Debug.Log("wander start");
+        //Debug.Log("wander start");
         //
         _Instance._Agent.isStopped = false;
 
@@ -258,10 +259,10 @@ public class EnemyWanderST : EnemyBHST
             Random.Range(-_Instance.bounds.extents.z, _Instance.bounds.extents.z)
             );
             targetPOS = randomPosInBounds;
-            Debug.Log(targetPOS);
+            //Debug.Log(targetPOS);
 
             NavMeshHit hitMesh;
-            if (NavMesh.SamplePosition(targetPOS, out hitMesh, 40f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(targetPOS, out hitMesh, 55f, NavMesh.AllAreas))
             {
                 _Instance._Agent.SetDestination(hitMesh.position);
                 targetPOS = hitMesh.position;
