@@ -50,7 +50,7 @@ public class EnemySCR : FiniteStateMachine
 
         if(TryGetComponent(out AudioSource aSrc) == true)
         {
-            AudioSource audioSource = aSrc;
+            audioSource = aSrc;
         }
 
         //if (transform.GetChild(0).TryGetComponent(out Animator anim) == true)
@@ -183,6 +183,7 @@ public class EnemyIdleST : EnemyBHST
         //Debug.Log(idleTime);
         //_Instance.animator.SetBool("IsMoving", false);
 
+
         _Instance.audioSource.PlayOneShot(idleSoundClip);
 
     }
@@ -219,11 +220,16 @@ public class EnemyWanderST : EnemyBHST
 {
     [SerializeField] 
     private float wanderSpeed = 7f;
+
+    [SerializeField]
+    private AudioClip wanderSoundClip;
+
     private Vector3 targetPOS;
     private bool foundPos = false;
     public EnemyWanderST(EnemySCR instance, Transform playerTran, EnemyWanderST wander) : base(instance, playerTran)
     {
         wanderSpeed = wander.wanderSpeed;
+        wanderSoundClip = wander.wanderSoundClip;
     }
 
     public override void OnStateEnter()
@@ -236,6 +242,8 @@ public class EnemyWanderST : EnemyBHST
 
         //_Instance.animator.SetBool("IsChasing", false);
         //_Instance.animator.SetBool("IsMoving", true);
+
+        _Instance.audioSource.PlayOneShot(wanderSoundClip);
     }
 
     public override void OnStateExit()
@@ -289,9 +297,13 @@ public class EnemyChaseST : EnemyBHST
     [SerializeField]
     private float chaseSpeed = 13f;
 
+    [SerializeField]
+    private AudioClip chaseSoundClip;
+
     public EnemyChaseST(EnemySCR instance, Transform playerTran, EnemyChaseST chase) : base(instance, playerTran)
     {
         chaseSpeed = chase.chaseSpeed;
+        chaseSoundClip = chase.chaseSoundClip;
     }
 
     public override void OnStateEnter()
@@ -301,12 +313,14 @@ public class EnemyChaseST : EnemyBHST
 
         //_Instance.animator.SetBool("IsMoving", false);
         //_Instance.animator.SetBool("IsChasing", true);
-        Debug.Log("AHOY!");
+        //Debug.Log("AHOY!");
+
+        _Instance.audioSource.PlayOneShot(chaseSoundClip);
     }
 
     public override void OnStateExit()
     {
-        Debug.Log("boo.");
+        //Debug.Log("boo.");
     }
 
     public override void OnStateUpdate()
