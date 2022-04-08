@@ -367,7 +367,7 @@ public class EnemyStunST : EnemyBHST
         _Instance._Agent.isStopped = true;
         idleTime = 3.5f;
         _time = 0;
-        Debug.Log("AGHH!");
+        //Debug.Log("AGHH!");
     }
 
     public override void OnStateExit()

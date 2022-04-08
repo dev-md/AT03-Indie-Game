@@ -120,6 +120,7 @@ namespace Fragsurf.Movement {
             _colliderObject.transform.rotation = Quaternion.identity;
             _colliderObject.transform.localPosition = Vector3.zero;
             _colliderObject.transform.SetSiblingIndex (0);
+            _colliderObject.tag = "Player";
 
             // Water check
             _cameraWaterCheckObject = new GameObject ("Camera water check");

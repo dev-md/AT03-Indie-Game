@@ -9,6 +9,7 @@ public class GameOverSCR : MonoBehaviour
 
     [SerializeField] private GameObject gameoverCanvas;
     [SerializeField] private GameObject playerGmVar;
+    [SerializeField] private bool isMoving = false;
     // Start is called before the first frame update
 
     private void Awake()
@@ -30,15 +31,23 @@ public class GameOverSCR : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("FOUND");
-        if (Vector3.Distance(transform.position, playerGame.transform.position) < 2f)
+        if(isMoving == true)
         {
-            gameoverCanvas.SetActive(true);
-            playerGame.SetActive(false);
+            if (Vector3.Distance(transform.position, playerGame.transform.position) < 2f)
+            {
+                gameoverCanvas.SetActive(true);
+                playerGame.SetActive(false);
+            }
         }
-        else if (playerGame == other.gameObject)
+        else if (isMoving == false)
         {
-            gameoverCanvas.SetActive(true);
-            playerGame.SetActive(false);
+            //Debug.Log(playerGame.tag);
+            //Debug.Log(other.gameObject.name);
+            if (playerGame.tag == other.gameObject.tag)
+            {
+                gameoverCanvas.SetActive(true);
+                playerGame.SetActive(false);
+            }
         }
     }
 }

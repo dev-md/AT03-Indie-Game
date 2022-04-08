@@ -6,18 +6,16 @@ using UnityEngine.UI;
 public class EndTrigger : MonoBehaviour
 {
     public delegate bool FinishAllButton(bool ifFinish);
-
     private BoxCollider thisCol;
-    private GameObject canvas;
-    private GameObject gameTextEnd;
+    [SerializeField] private GameObject winScreen;
+
 
     private void Awake()
     {
         ButtonEventManger.confrimIncreaseTotal += activeTrigger;
         thisCol = GetComponent<BoxCollider>();
         thisCol.enabled = false;
-
-        canvas = GameObject.Find("Canvas");
+        winScreen.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,9 +24,6 @@ public class EndTrigger : MonoBehaviour
         {
             thisCol.enabled = false;
             Debug.Log("END GAME");
-
-            //Text text = canvas.AddComponent<Text>();
-            //text.text = "ESACPED";
             activeEndGUI();
         }
     }
@@ -45,11 +40,6 @@ public class EndTrigger : MonoBehaviour
 
     public void activeEndGUI()
     {
-        gameTextEnd = new GameObject("TextEndStuff");
-
-        Text text = gameTextEnd.AddComponent<Text>();
-        text.text = "ESACPED";
-        text.alignment = TextAnchor.MiddleCenter;
-
+        winScreen.SetActive(true);
     }
 }
