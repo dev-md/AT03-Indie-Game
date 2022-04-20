@@ -18,7 +18,7 @@ public class EnemySCR : FiniteStateMachine
     private bool isStunned;
     private SphereCollider stunCol;
 
-    //public Animator animator { get; private set; }
+    public Animator animator { get; private set; }
     public AudioSource audioSource { get; private set; }
 
 
@@ -59,10 +59,10 @@ public class EnemySCR : FiniteStateMachine
             stunCol.enabled = true;
         }
 
-        //if (transform.GetChild(0).TryGetComponent(out Animator anim) == true)
-        //{
-        //    animator = anim;
-        //}
+        if (transform.GetChild(0).transform.GetChild(0).TryGetComponent(out Animator anim) == true)
+        {
+            animator = anim;
+        }
 
         outlineObject = GetComponent<Outline>();
         outlineObject.enabled = false;
@@ -87,6 +87,9 @@ public class EnemySCR : FiniteStateMachine
             isStunned = true;
             stunCol.enabled = false;
             StartCoroutine(StunTimer());
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("IsChasing", false);
+            animator.SetBool("IsStunnedaa", true);
         }
     }
 
@@ -189,7 +192,8 @@ public class EnemyIdleST : EnemyBHST
         idleTime = Random.Range(idleTimeRange.x,idleTimeRange.y);
         _time = 0;
         //Debug.Log(idleTime);
-        //_Instance.animator.SetBool("IsMoving", false);
+        _Instance.animator.SetBool("IsMoving", false);
+        _Instance.animator.SetBool("IsStunnedaa", false);
 
 
         _Instance.audioSource.PlayOneShot(idleSoundClip);
@@ -223,6 +227,7 @@ public class EnemyIdleST : EnemyBHST
 }
 
 //------------------------------------------------------
+
 [System.Serializable]
 public class EnemyWanderST : EnemyBHST
 {
@@ -248,8 +253,9 @@ public class EnemyWanderST : EnemyBHST
         //
         _Instance._Agent.isStopped = false;
 
-        //_Instance.animator.SetBool("IsChasing", false);
-        //_Instance.animator.SetBool("IsMoving", true);
+        _Instance.animator.SetBool("IsChasing", false);
+        _Instance.animator.SetBool("IsMoving", true);
+        _Instance.animator.SetBool("IsStunnedaa", false);
 
         _Instance.audioSource.PlayOneShot(wanderSoundClip);
     }
@@ -303,7 +309,7 @@ public class EnemyWanderST : EnemyBHST
 public class EnemyChaseST : EnemyBHST
 {
     [SerializeField]
-    private float chaseSpeed = 13f;
+    private float chaseSpeed = 15f;
 
     [SerializeField]
     private AudioClip chaseSoundClip;
@@ -319,8 +325,9 @@ public class EnemyChaseST : EnemyBHST
         _Instance._Agent.speed = chaseSpeed;
         _Instance._Agent.isStopped = false;
 
-        //_Instance.animator.SetBool("IsMoving", false);
-        //_Instance.animator.SetBool("IsChasing", true);
+        _Instance.animator.SetBool("IsMoving", false);
+        _Instance.animator.SetBool("IsChasing", true);
+        _Instance.animator.SetBool("IsStunnedaa", false);
         //Debug.Log("AHOY!");
 
         _Instance.audioSource.PlayOneShot(chaseSoundClip);
@@ -385,7 +392,6 @@ public class EnemyStunST : EnemyBHST
             {
                 //
                 _Instance.SetState(_Instance.enemyIdle);
-
             }
         }
     }
