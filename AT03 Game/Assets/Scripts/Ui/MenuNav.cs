@@ -6,7 +6,7 @@ public class MenuNav : MonoBehaviour
 {
     public delegate void MenuInputDelegate(float axis);
     
-    [SerializeField] private float bufferTime = 0.35f;
+    [SerializeField] private float bufferTime = 0.05f;
 
     private float timer = -1;
     private int currentButtonIndex = 0;
@@ -69,10 +69,13 @@ public class MenuNav : MonoBehaviour
         #region timer functinoality
         if (timer < 0)
         {
-            float axis = Input.GetAxis("Vertical");
-            if(axis != 0)
+            if (Input.GetButtonUp("Vertical"))
             {
-                VerticalInputEvent.Invoke(axis);
+                float axis = Input.GetAxis("Vertical");
+                if (axis != 0)
+                {
+                    VerticalInputEvent.Invoke(axis);
+                }
             }
         }
         else
@@ -87,7 +90,7 @@ public class MenuNav : MonoBehaviour
 
         if(SelectedButton != null)
         {
-            if (Input.GetButtonDown("Submit"))
+            if (Input.GetButtonUp("Submit"))
             {
                 SelectedButton.Active();
             }
