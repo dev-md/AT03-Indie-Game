@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,8 +26,8 @@ public class EnemySCR : FiniteStateMachine
     public EnemyChaseST enemyChase;
     public EnemyWanderST enemyWander;
     public EnemyStunST enemyStun;
-
-
+    public EnemyGIGAST enemyGIGAST;
+    public bool enemyGIGAMode;
     // Start is called before the first frame update
 
     protected override void Awake()
@@ -39,9 +39,12 @@ public class EnemySCR : FiniteStateMachine
         enemyIdle = new EnemyIdleST(this,playerTran,enemyIdle);
         enemyChase = new EnemyChaseST(this, playerTran,enemyChase);
         enemyWander = new EnemyWanderST(this, playerTran,enemyWander);
-        enemyStun = new EnemyStunST(this, playerTran);
+        enemyGIGAST = new EnemyGIGAST(this, playerTran, enemyGIGAST);
+        enemyGIGAMode = false;
 
         entryState = enemyIdle;
+
+        ButtonEventManger.confrimIncreaseTotal += ActiveGIGA;
 
         //mainCurState = entryState;
         if (TryGetComponent(out NavMeshAgent agent) == true)
@@ -72,7 +75,6 @@ public class EnemySCR : FiniteStateMachine
     {
         base.Start();
         SetState(entryState);
-
     }
 
     // Update is called once per frame
@@ -95,7 +97,7 @@ public class EnemySCR : FiniteStateMachine
 
     private IEnumerator StunTimer()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3.5f);
         isStunned = false;
         stunCol.enabled = true;
     }
@@ -131,6 +133,18 @@ public class EnemySCR : FiniteStateMachine
         { 
             outlineObject.enabled = false;
         }
+    }
+    public int ActiveGIGA(int num)
+    {
+        //Debug.Log(num);
+        if (num < -1)
+        {
+            SetState(enemyGIGAST);
+            enemyGIGAMode = true;
+            return -1;
+        }
+        return num;
+
     }
 
 }
@@ -268,9 +282,9 @@ public class EnemyWanderST : EnemyBHST
 
     public override void OnStateUpdate()
     {
-        //
         //Debug.Log(Vector3.Distance(targetPOS, _Instance.transform.position));
         //Debug.Log(_Instance._Agent.stoppingDistance);
+
         if (foundPos == false)
         {
             //Debug.Log("Check");
@@ -390,9 +404,52 @@ public class EnemyStunST : EnemyBHST
             _time += Time.deltaTime;
             if (_time >= idleTime)
             {
-                //
-                _Instance.SetState(_Instance.enemyIdle);
+                if(_Instance.enemyGIGAMode == true)
+                {
+                    _Instance.SetState(_Instance.enemyGIGAST);
+                }
+                else
+                {
+                    _Instance.SetState(_Instance.enemyWander);
+                }
             }
         }
+    }
+}
+
+[System.Serializable]
+public class EnemyGIGAST : EnemyBHST
+{
+    [SerializeField]
+    private float chaseSpeed = 15f;
+    [SerializeField]
+    private AudioClip chaseSoundClip;
+    public EnemyGIGAST(EnemySCR instance, Transform playerTran, EnemyGIGAST giga) : base(instance, playerTran)
+    {
+        chaseSpeed = giga.chaseSpeed;
+        chaseSoundClip = giga.chaseSoundClip;
+    }
+    public override void OnStateEnter()
+    {
+        _Instance._Agent.speed = chaseSpeed;
+        _Instance._Agent.isStopped = false;
+
+        _Instance.animator.SetBool("IsMoving", false);
+        _Instance.animator.SetBool("IsChasing", true);
+        _Instance.animator.SetBool("IsStunnedaa", false);
+        //Debug.Log("AHOY!");
+        Debug.Log("GIGA ON");
+
+        _Instance.audioSource.PlayOneShot(chaseSoundClip);
+    }
+
+    public override void OnStateExit()
+    {
+        //
+    }
+
+    public override void OnStateUpdate()
+    {
+        _Instance._Agent.SetDestination(_PlayerTran.position);
     }
 }
