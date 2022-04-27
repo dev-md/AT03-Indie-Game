@@ -83,6 +83,9 @@
     <Compile Include="Assets\Scripts\Objects\SelfButtonTrigger.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemySCR.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\CameraWaterCheck.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerExit.cs" />
+    <Compile Include="Assets\Scripts\Ui\SceneChangetoName.cs" />
+    <Compile Include="Assets\Scripts\Ui\UIQuitApp.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Thirdparty\QuickOutline\Resources\Shaders\OutlineMask.shader" />

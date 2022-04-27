@@ -35,8 +35,7 @@ public class GameOverSCR : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, playerGame.transform.position) < 2f)
             {
-                gameoverCanvas.SetActive(true);
-                playerGame.SetActive(false);
+                ActiveDeath();
             }
         }
         else if (isMoving == false)
@@ -45,9 +44,17 @@ public class GameOverSCR : MonoBehaviour
             //Debug.Log(other.gameObject.name);
             if (playerGame.tag == other.gameObject.tag)
             {
-                gameoverCanvas.SetActive(true);
-                playerGame.SetActive(false);
+                ActiveDeath();
             }
         }
+    }
+
+    private void ActiveDeath()
+    {
+        gameoverCanvas.SetActive(true);
+        playerGame.SetActive(false);
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
