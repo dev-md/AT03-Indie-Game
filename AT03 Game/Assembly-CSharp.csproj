@@ -64,9 +64,11 @@
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\PlayerAiming.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\MoveData.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\SurfController.cs" />
+    <Compile Include="Assets\Scripts\Ui\Misson SCR\numBoxRemainSCR.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\SurfCharacter.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\ISurfControllable.cs" />
     <Compile Include="Assets\Scripts\Objects\ButtonEventManger.cs" />
+    <Compile Include="Assets\Scripts\Ui\MissonMenuManger.cs" />
     <Compile Include="Assets\Scripts\Ui\GameOverSCR.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\MovementConfig.cs" />
     <Compile Include="Assets\Scripts\Player\Interaction.cs" />
@@ -87,8 +89,7 @@
     <Compile Include="Assets\Scripts\Enemy\EnemySCR.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerExit.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\CameraWaterCheck.cs" />
-    <Compile Include="Assets\Scripts\Ui\MissonMenuManger.cs" />
-    <Compile Include="Assets\Scripts\Ui\Misson SCR\numBoxRemainSCR.cs" />
+    <Compile Include="Assets\Scripts\Ui\Misson SCR\ListenerEventSCR.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Thirdparty\QuickOutline\Resources\Shaders\OutlineMask.shader" />

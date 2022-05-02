@@ -32,7 +32,7 @@ public class SceneChangetoName : MonoBehaviour
     }
     public void DebugMessage(string msg)
     {
-        Debug.Log(msg);
+        //Debug.Log(msg);
         foreach(string scene in scenes)
         {
             //print(scene);
