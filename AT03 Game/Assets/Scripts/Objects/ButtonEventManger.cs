@@ -14,11 +14,22 @@ public class ButtonEventManger : MonoBehaviour, IInteractable
     private int totalMax;
     private Outline outlineObject;
 
+    private List<GameObject> listChildren = new List<GameObject>();
+    public int numChild { get; private set; }
+
     private void Awake()
     {
         confrimIncreaseTotal += AddTotal;
         outlineObject = GetComponent<Outline>();
         outlineObject.enabled = false;
+
+        numChild = this.transform.childCount;
+        for (int i = 0; i < numChild; i++)
+        {
+            listChildren.Add(this.transform.GetChild(i).gameObject);
+
+        }
+
     }
     private void Start()
     {
@@ -49,7 +60,7 @@ public class ButtonEventManger : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        if (totalMax > 2)
+        if (totalMax >= numChild)
         {
             disableSCR = true;
             confrimIncreaseTotal.Invoke(-totalMax);
@@ -58,6 +69,11 @@ public class ButtonEventManger : MonoBehaviour, IInteractable
         {
             Debug.Log("Boo");
         }
+    }
+
+    private void MessageBounce(GameObject gameObj)
+    {
+        gameObj.SendMessage("TotalBox",numChild);
     }
 
     private void Update()

@@ -81,12 +81,14 @@
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Water.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\InputButtons.cs" />
     <Compile Include="Assets\Scripts\Ui\UIQuitApp.cs" />
+    <Compile Include="Assets\Scripts\Ui\FocusPanelSCR.cs" />
     <Compile Include="Assets\Scripts\Player\MouseLook.cs" />
     <Compile Include="Assets\Scripts\Objects\SelfButtonTrigger.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemySCR.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerExit.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\CameraWaterCheck.cs" />
-    <Compile Include="Assets\Scripts\Ui\FocusPanelSCR.cs" />
+    <Compile Include="Assets\Scripts\Ui\MissonMenuManger.cs" />
+    <Compile Include="Assets\Scripts\Ui\Misson SCR\numBoxRemainSCR.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Thirdparty\QuickOutline\Resources\Shaders\OutlineMask.shader" />
