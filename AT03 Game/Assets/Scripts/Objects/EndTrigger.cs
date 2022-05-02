@@ -41,5 +41,8 @@ public class EndTrigger : MonoBehaviour
     public void activeEndGUI()
     {
         winScreen.SetActive(true);
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
