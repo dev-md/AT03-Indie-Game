@@ -71,6 +71,7 @@
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\MovementConfig.cs" />
     <Compile Include="Assets\Scripts\Player\Interaction.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Extensions\IntExtensions.cs" />
+    <Compile Include="Assets\Scripts\Ui\SceneChangetoName.cs" />
     <Compile Include="Assets\Scripts\Objects\TestButtonEvents.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\TraceUtil\Trace.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\SurfPhysics.cs" />
@@ -79,13 +80,13 @@
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Ladder.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Water.cs" />
     <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\Movement\InputButtons.cs" />
+    <Compile Include="Assets\Scripts\Ui\UIQuitApp.cs" />
     <Compile Include="Assets\Scripts\Player\MouseLook.cs" />
     <Compile Include="Assets\Scripts\Objects\SelfButtonTrigger.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemySCR.cs" />
-    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\CameraWaterCheck.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerExit.cs" />
-    <Compile Include="Assets\Scripts\Ui\SceneChangetoName.cs" />
-    <Compile Include="Assets\Scripts\Ui\UIQuitApp.cs" />
+    <Compile Include="Assets\Thirdparty\UnitySourceMovement-master\Modified fragsurf\CameraWaterCheck.cs" />
+    <Compile Include="Assets\Scripts\Ui\FocusPanelSCR.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Thirdparty\QuickOutline\Resources\Shaders\OutlineMask.shader" />
