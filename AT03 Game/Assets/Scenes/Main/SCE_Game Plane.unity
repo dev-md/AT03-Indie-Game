@@ -832,7 +832,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Go to the master button.
+  m_Text: Go find and collect the master key.
 --- !u!222 &165027313
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12001,6 +12001,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winScreen: {fileID: 1640016788}
+  enemyGM: {fileID: 4995663020719454983}
+  playerGM: {fileID: 5467285085103118176}
 --- !u!114 &8396535011213454080
 MonoBehaviour:
   m_ObjectHideFlags: 0

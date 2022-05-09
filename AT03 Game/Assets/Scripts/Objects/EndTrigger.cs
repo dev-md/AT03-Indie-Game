@@ -8,6 +8,8 @@ public class EndTrigger : MonoBehaviour
     public delegate bool FinishAllButton(bool ifFinish);
     private BoxCollider thisCol;
     [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject enemyGM;
+    [SerializeField] private GameObject playerGM;
 
 
     private void Awake()
@@ -41,6 +43,8 @@ public class EndTrigger : MonoBehaviour
     public void activeEndGUI()
     {
         winScreen.SetActive(true);
+        enemyGM.SetActive(false);
+        playerGM.SetActive(false);
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
