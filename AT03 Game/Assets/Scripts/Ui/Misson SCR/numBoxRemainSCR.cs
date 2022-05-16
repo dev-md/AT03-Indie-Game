@@ -12,7 +12,7 @@ public class numBoxRemainSCR : MonoBehaviour
     private void Awake()
     {
         txt = this.transform.GetChild(0).gameObject.GetComponent<Text>();
-        txt.text = "Remaining Objects " + "0/"+totalNum;
+        txt.text = "Remaining boxes " + "0/"+totalNum;
 
         ButtonEventManger.confrimIncreaseTotal += AddTotal;
     }
@@ -34,7 +34,7 @@ public class numBoxRemainSCR : MonoBehaviour
 
     private void Update()
     {
-        txt.text = "Remaining Objects " + curNum +  "/" + totalNum;
+        txt.text = "Remaining Boxes " + curNum +  "/" + totalNum;
 
         if(curNum >= totalNum)
         {

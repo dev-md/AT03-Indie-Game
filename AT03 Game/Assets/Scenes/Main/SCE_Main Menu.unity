@@ -559,8 +559,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: A lot of text saying the background of the game and stuff. and i really
-    dont know what to type here.
+  m_Text: You are trapped in cyber space, and you need to find a way out. You broke
+    into the gateway progarm that is maded from the city that trapped you. Find the
+    hyperlinked boxes, break them and take the Master key for yourself to escape.
 --- !u!222 &658218469
 CanvasRenderer:
   m_ObjectHideFlags: 0
