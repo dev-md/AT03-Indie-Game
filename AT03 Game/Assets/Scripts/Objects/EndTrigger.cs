@@ -10,6 +10,7 @@ public class EndTrigger : MonoBehaviour
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject enemyGM;
     [SerializeField] private GameObject playerGM;
+    [SerializeField] private GameObject objectmisson;
 
 
     private void Awake()
@@ -45,6 +46,7 @@ public class EndTrigger : MonoBehaviour
         winScreen.SetActive(true);
         enemyGM.SetActive(false);
         playerGM.SetActive(false);
+        objectmisson.SetActive(false);
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;

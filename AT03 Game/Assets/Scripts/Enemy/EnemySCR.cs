@@ -25,9 +25,10 @@ public class EnemySCR : FiniteStateMachine
     public EnemyIdleST enemyIdle;
     public EnemyChaseST enemyChase;
     public EnemyWanderST enemyWander;
-    public EnemyStunST enemyStun;
     public EnemyGIGAST enemyGIGAST;
+    public EnemyStunST enemyStunST;
     public bool enemyGIGAMode;
+
     // Start is called before the first frame update
 
     protected override void Awake()
@@ -40,6 +41,7 @@ public class EnemySCR : FiniteStateMachine
         enemyChase = new EnemyChaseST(this, playerTran,enemyChase);
         enemyWander = new EnemyWanderST(this, playerTran,enemyWander);
         enemyGIGAST = new EnemyGIGAST(this, playerTran, enemyGIGAST);
+        enemyStunST = new EnemyStunST(this, playerTran, enemyStunST);
         enemyGIGAMode = false;
 
         entryState = enemyIdle;
@@ -85,7 +87,7 @@ public class EnemySCR : FiniteStateMachine
         if ((Input.GetButtonDown("Use")) && (outlineObject.enabled == true))
         {
             //Debug.Log("Stunned");
-            SetState(new EnemyStunST(this,playerTran));
+            SetState(enemyStunST);
             isStunned = true;
             stunCol.enabled = false;
             StartCoroutine(StunTimer());
@@ -372,15 +374,18 @@ public class EnemyChaseST : EnemyBHST
     }
 }
 
-
+[System.Serializable]
 public class EnemyStunST : EnemyBHST
 {
     private float _time = -1;
     private float idleTime = 0;
 
-    public EnemyStunST(EnemySCR instance, Transform playerTran) : base(instance, playerTran)
-    {
+    [SerializeField]
+    private AudioClip stunSoundClip;
 
+    public EnemyStunST(EnemySCR instance, Transform playerTran, EnemyStunST stunned) : base(instance, playerTran)
+    {
+        stunSoundClip = stunned.stunSoundClip;
     }
 
     public override void OnStateEnter()
@@ -388,6 +393,7 @@ public class EnemyStunST : EnemyBHST
         _Instance._Agent.isStopped = true;
         idleTime = 3.5f;
         _time = 0;
+        _Instance.audioSource.PlayOneShot(stunSoundClip);
         //Debug.Log("AGHH!");
     }
 
