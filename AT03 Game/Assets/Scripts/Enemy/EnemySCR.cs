@@ -300,7 +300,7 @@ public class EnemyWanderST : EnemyBHST
             //Debug.Log(targetPOS);
 
             NavMeshHit hitMesh;
-            if (NavMesh.SamplePosition(targetPOS, out hitMesh, 55f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(targetPOS, out hitMesh, 25f, NavMesh.AllAreas))
             {
                 _Instance._Agent.SetDestination(hitMesh.position);
                 targetPOS = hitMesh.position;
@@ -365,7 +365,7 @@ public class EnemyChaseST : EnemyBHST
         //    _Instance.SetState(new EnemyWanderST(_Instance));
         //}
 
-        if(Vector3.Distance(_Instance.transform.position, _PlayerTran.position) > _Instance.viewRadius*4.5f)
+        if(Vector3.Distance(_Instance.transform.position, _PlayerTran.position) > _Instance.viewRadius*1.5f)
         {
             _Instance.SetState(_Instance.enemyIdle);
         }
