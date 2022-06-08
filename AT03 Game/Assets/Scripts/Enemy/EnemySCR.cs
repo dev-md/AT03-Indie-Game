@@ -296,7 +296,7 @@ public class EnemyWanderST : EnemyBHST
             _Instance.transform.position.y,
             Random.Range(-_Instance.bounds.extents.z, _Instance.bounds.extents.z)
             );
-            targetPOS = randomPosInBounds;
+            targetPOS = randomPosInBounds + _Instance.bounds.center;
             //Debug.Log(targetPOS);
 
             NavMeshHit hitMesh;
