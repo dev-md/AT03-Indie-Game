@@ -21,6 +21,8 @@ public class EnemySCR : FiniteStateMachine
     public Animator animator { get; private set; }
     public AudioSource audioSource { get; private set; }
 
+    private bool canStunEm = false;
+
 
     public EnemyIdleST enemyIdle;
     public EnemyChaseST enemyChase;
@@ -84,16 +86,18 @@ public class EnemySCR : FiniteStateMachine
     {
         base.Update();
 
-        if ((Input.GetButtonDown("Use")) && (outlineObject.enabled == true))
+        if ((Input.GetButtonDown("Use")) && (canStunEm == true))
         {
             //Debug.Log("Stunned");
             SetState(enemyStunST);
             isStunned = true;
+            canStunEm = false;
+            outlineObject.enabled = false;
             stunCol.enabled = false;
             StartCoroutine(StunTimer());
+            animator.SetBool("IsStunnedaa", true);
             animator.SetBool("IsMoving", false);
             animator.SetBool("IsChasing", false);
-            animator.SetBool("IsStunnedaa", true);
         }
     }
 
@@ -117,23 +121,25 @@ public class EnemySCR : FiniteStateMachine
         if (isStunned == false)
         {
             if (
-                (outlineObject.enabled == false) &&
-                (Vector3.Distance(transform.position, playerTran.position) <= viewRadius+2f)
+                (canStunEm == false) &&
+                (Vector3.Distance(transform.position, playerTran.position) <= viewRadius)
                 )
 
             {
                 outlineObject.enabled = true;
+                canStunEm = true;
             }
         }
     }
     private void OnMouseExit()
     {
         if (
-            (outlineObject.enabled == true) || 
+            (canStunEm == true) || 
             (Vector3.Distance(transform.position, playerTran.position) > viewRadius)
             )
         { 
             outlineObject.enabled = false;
+            canStunEm = false;
         }
     }
     public int ActiveGIGA(int num)
@@ -187,7 +193,6 @@ public class EnemyIdleST : EnemyBHST
     [SerializeField]
     private Vector2 idleTimeRange = new Vector2(3f, 10f);
 
-    //ONCE THIS IS FIXED, DO THIS TO THE REST
     [SerializeField]
     private AudioClip idleSoundClip;
 
@@ -269,8 +274,8 @@ public class EnemyWanderST : EnemyBHST
         //
         _Instance._Agent.isStopped = false;
 
-        _Instance.animator.SetBool("IsChasing", false);
         _Instance.animator.SetBool("IsMoving", true);
+        _Instance.animator.SetBool("IsChasing", false);
         _Instance.animator.SetBool("IsStunnedaa", false);
 
         _Instance.audioSource.PlayOneShot(wanderSoundClip);
@@ -296,11 +301,12 @@ public class EnemyWanderST : EnemyBHST
             _Instance.transform.position.y,
             Random.Range(-_Instance.bounds.extents.z, _Instance.bounds.extents.z)
             );
-            targetPOS = randomPosInBounds + _Instance.bounds.center;
+            targetPOS = randomPosInBounds + new Vector3(_Instance.bounds.center.x,0f, _Instance.bounds.center.z);
+            
             //Debug.Log(targetPOS);
 
             NavMeshHit hitMesh;
-            if (NavMesh.SamplePosition(targetPOS, out hitMesh, 25f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(targetPOS, out hitMesh, 15f, NavMesh.AllAreas))
             {
                 _Instance._Agent.SetDestination(hitMesh.position);
                 targetPOS = hitMesh.position;
@@ -341,8 +347,8 @@ public class EnemyChaseST : EnemyBHST
         _Instance._Agent.speed = chaseSpeed;
         _Instance._Agent.isStopped = false;
 
-        _Instance.animator.SetBool("IsMoving", false);
         _Instance.animator.SetBool("IsChasing", true);
+        _Instance.animator.SetBool("IsMoving", false);
         _Instance.animator.SetBool("IsStunnedaa", false);
         //Debug.Log("AHOY!");
 
@@ -440,8 +446,8 @@ public class EnemyGIGAST : EnemyBHST
         _Instance._Agent.speed = chaseSpeed;
         _Instance._Agent.isStopped = false;
 
-        _Instance.animator.SetBool("IsMoving", false);
         _Instance.animator.SetBool("IsChasing", true);
+        _Instance.animator.SetBool("IsMoving", false);
         _Instance.animator.SetBool("IsStunnedaa", false);
         //Debug.Log("AHOY!");
         Debug.Log("GIGA ON");
