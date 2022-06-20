@@ -9533,10 +9533,8 @@ MonoBehaviour:
   enemyWander:
     wanderSpeed: 3
     wanderSoundClip: {fileID: 8300000, guid: 3468bb5fd6acd49449f783e6198639d6, type: 3}
-  enemyGIGAST:
-    chaseSpeed: 5.5
-    chaseSoundClip: {fileID: 8300000, guid: 8fbb7eba602a64b4882e8f64f7964a18, type: 3}
   enemyStunST:
+    maxTime: 3.5
     stunSoundClip: {fileID: 8300000, guid: cf8a1647e5ff04d4cacdbd2c2e4bd217, type: 3}
   enemyGIGAMode: 0
 --- !u!1 &4995663020719454983

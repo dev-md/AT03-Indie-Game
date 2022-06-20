@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneChangetoName : MonoBehaviour
 {
     private List<string> listscenes = new List<string>();
+    private Scene scenefind;
     private void Awake()
     {
         int sceneCount = SceneManager.sceneCountInBuildSettings;
@@ -14,6 +15,7 @@ public class SceneChangetoName : MonoBehaviour
         {
             scenes[i] = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i));
             //print(scenes[i]);
+            
         }
         foreach(string s in scenes)
         {
@@ -23,8 +25,9 @@ public class SceneChangetoName : MonoBehaviour
 
     public void DebugMessage(string msg)
     {
+        //https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.html
         //Debug.Log(msg);
-        foreach(string scene in listscenes)
+        foreach (string scene in listscenes)
         {
             //print(scene);
             if (msg == scene)
@@ -32,6 +35,5 @@ public class SceneChangetoName : MonoBehaviour
                 SceneManager.LoadScene(scene);
             }
         }
-        
     }
 }

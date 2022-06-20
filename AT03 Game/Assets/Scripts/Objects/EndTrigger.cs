@@ -7,6 +7,7 @@ public class EndTrigger : MonoBehaviour
 {
     public delegate bool FinishAllButton(bool ifFinish);
     private BoxCollider thisCol;
+    private bool toggleCol;
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject enemyGM;
     [SerializeField] private GameObject playerGM;
@@ -19,6 +20,18 @@ public class EndTrigger : MonoBehaviour
         thisCol = GetComponent<BoxCollider>();
         thisCol.enabled = false;
         winScreen.SetActive(false);
+    }
+
+    private void LateUpdate()
+    {
+        if(toggleCol == true)
+        {
+            thisCol.enabled = true;
+        }
+        if (toggleCol == false)
+        {
+            thisCol.enabled = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,7 +48,7 @@ public class EndTrigger : MonoBehaviour
         //Debug.Log(num);
         if(num < -1)
         {
-            thisCol.enabled = true;
+            toggleCol = true;
             return -1;
         }
         return num;

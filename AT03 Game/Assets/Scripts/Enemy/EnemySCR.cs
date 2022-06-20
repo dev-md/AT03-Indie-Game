@@ -27,7 +27,6 @@ public class EnemySCR : FiniteStateMachine
     public EnemyIdleST enemyIdle;
     public EnemyChaseST enemyChase;
     public EnemyWanderST enemyWander;
-    public EnemyGIGAST enemyGIGAST;
     public EnemyStunST enemyStunST;
     public bool enemyGIGAMode;
 
@@ -42,7 +41,6 @@ public class EnemySCR : FiniteStateMachine
         enemyIdle = new EnemyIdleST(this,playerTran,enemyIdle);
         enemyChase = new EnemyChaseST(this, playerTran,enemyChase);
         enemyWander = new EnemyWanderST(this, playerTran,enemyWander);
-        enemyGIGAST = new EnemyGIGAST(this, playerTran, enemyGIGAST);
         enemyStunST = new EnemyStunST(this, playerTran, enemyStunST);
         enemyGIGAMode = false;
 
@@ -147,7 +145,6 @@ public class EnemySCR : FiniteStateMachine
         //Debug.Log(num);
         if (num < -1)
         {
-            SetState(enemyGIGAST);
             enemyGIGAMode = true;
             return -1;
         }
@@ -223,6 +220,11 @@ public class EnemyIdleST : EnemyBHST
     public override void OnStateUpdate()
     {
         if (Vector3.Distance(_Instance.transform.position, _PlayerTran.position) <= _Instance.viewRadius)
+        {
+            _Instance.SetState(_Instance.enemyChase);
+        }
+
+        if (_Instance.enemyGIGAMode == true)
         {
             _Instance.SetState(_Instance.enemyChase);
         }
@@ -314,6 +316,11 @@ public class EnemyWanderST : EnemyBHST
             }
         }
 
+        if (_Instance.enemyGIGAMode == true)
+        {
+            _Instance.SetState(_Instance.enemyChase);
+        }
+
         if (Vector3.Distance(_Instance.transform.position, _PlayerTran.position) <= _Instance.viewRadius)
         {
             _Instance.SetState(_Instance.enemyChase);
@@ -340,6 +347,7 @@ public class EnemyChaseST : EnemyBHST
     {
         chaseSpeed = chase.chaseSpeed;
         chaseSoundClip = chase.chaseSoundClip;
+
     }
 
     public override void OnStateEnter()
@@ -353,6 +361,7 @@ public class EnemyChaseST : EnemyBHST
         //Debug.Log("AHOY!");
 
         _Instance.audioSource.PlayOneShot(chaseSoundClip);
+        if (_Instance.enemyGIGAMode == true) Debug.Log("GIGA ACTIVE");
     }
 
     public override void OnStateExit()
@@ -362,18 +371,12 @@ public class EnemyChaseST : EnemyBHST
 
     public override void OnStateUpdate()
     {
-        //if (_Instance.targetPlayer != null)
-        //{
-        //    _Instance._Agent.SetDestination(_Instance.targetPlayer.position);
-        //}
-        //else
-        //{
-        //    _Instance.SetState(new EnemyWanderST(_Instance));
-        //}
-
-        if(Vector3.Distance(_Instance.transform.position, _PlayerTran.position) > _Instance.viewRadius*1.5f)
+        if (_Instance.enemyGIGAMode == false)
         {
-            _Instance.SetState(_Instance.enemyIdle);
+            if (Vector3.Distance(_Instance.transform.position, _PlayerTran.position) > _Instance.viewRadius * 1.5f)
+            {
+                _Instance.SetState(_Instance.enemyIdle);
+            }
         }
 
         _Instance._Agent.SetDestination(_PlayerTran.position);
@@ -387,17 +390,21 @@ public class EnemyStunST : EnemyBHST
     private float idleTime = 0;
 
     [SerializeField]
+    private float maxTime = 3.5f;
+
+    [SerializeField]
     private AudioClip stunSoundClip;
 
     public EnemyStunST(EnemySCR instance, Transform playerTran, EnemyStunST stunned) : base(instance, playerTran)
     {
         stunSoundClip = stunned.stunSoundClip;
+        maxTime = stunned.maxTime;
     }
 
     public override void OnStateEnter()
     {
         _Instance._Agent.isStopped = true;
-        idleTime = 3.5f;
+        idleTime = maxTime;
         _time = 0;
         _Instance.audioSource.PlayOneShot(stunSoundClip);
         //Debug.Log("AGHH!");
@@ -418,7 +425,7 @@ public class EnemyStunST : EnemyBHST
             {
                 if(_Instance.enemyGIGAMode == true)
                 {
-                    _Instance.SetState(_Instance.enemyGIGAST);
+                    _Instance.SetState(_Instance.enemyChase);
                 }
                 else
                 {
@@ -426,42 +433,5 @@ public class EnemyStunST : EnemyBHST
                 }
             }
         }
-    }
-}
-
-[System.Serializable]
-public class EnemyGIGAST : EnemyBHST
-{
-    [SerializeField]
-    private float chaseSpeed = 15f;
-    [SerializeField]
-    private AudioClip chaseSoundClip;
-    public EnemyGIGAST(EnemySCR instance, Transform playerTran, EnemyGIGAST giga) : base(instance, playerTran)
-    {
-        chaseSpeed = giga.chaseSpeed;
-        chaseSoundClip = giga.chaseSoundClip;
-    }
-    public override void OnStateEnter()
-    {
-        _Instance._Agent.speed = chaseSpeed;
-        _Instance._Agent.isStopped = false;
-
-        _Instance.animator.SetBool("IsChasing", true);
-        _Instance.animator.SetBool("IsMoving", false);
-        _Instance.animator.SetBool("IsStunnedaa", false);
-        //Debug.Log("AHOY!");
-        Debug.Log("GIGA ON");
-
-        _Instance.audioSource.PlayOneShot(chaseSoundClip);
-    }
-
-    public override void OnStateExit()
-    {
-        //
-    }
-
-    public override void OnStateUpdate()
-    {
-        _Instance._Agent.SetDestination(_PlayerTran.position);
     }
 }
