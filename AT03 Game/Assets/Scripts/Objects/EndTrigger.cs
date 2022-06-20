@@ -43,6 +43,7 @@ public class EndTrigger : MonoBehaviour
             activeEndGUI();
         }
     }
+
     public int activeTrigger(int num)
     {
         //Debug.Log(num);
