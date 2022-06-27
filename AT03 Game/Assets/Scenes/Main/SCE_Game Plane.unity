@@ -7188,6 +7188,7 @@ GameObject:
   - component: {fileID: 1613684799}
   - component: {fileID: 1613684798}
   - component: {fileID: 1613684797}
+  - component: {fileID: 1613684801}
   m_Layer: 5
   m_Name: Back to menu Button
   m_TagString: Untagged
@@ -7321,6 +7322,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613684795}
   m_CullTransparentMesh: 1
+--- !u!114 &1613684801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613684795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fec08eedd9906b408637b75975c6f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1623181359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8678,6 +8691,7 @@ GameObject:
   - component: {fileID: 1927131561}
   - component: {fileID: 1927131560}
   - component: {fileID: 1927131559}
+  - component: {fileID: 1927131563}
   m_Layer: 5
   m_Name: Gameover Button
   m_TagString: Untagged
@@ -8811,6 +8825,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927131557}
   m_CullTransparentMesh: 1
+--- !u!114 &1927131563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927131557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fec08eedd9906b408637b75975c6f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1938958970
 GameObject:
   m_ObjectHideFlags: 0
@@ -9739,6 +9765,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5467285084029197572}
   - component: {fileID: 5467285084029197573}
+  - component: {fileID: 5467285084029197574}
   m_Layer: 0
   m_Name: Camera holder
   m_TagString: Untagged
@@ -9783,6 +9810,18 @@ MonoBehaviour:
   punchSpringConstant: 65
   punchAngle: {x: 0, y: 0}
   punchAngleVel: {x: 0, y: 0}
+--- !u!114 &5467285084029197574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5467285084029197571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0ab5288fb9ef0244ac567a275e344bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5467285085103118176
 GameObject:
   m_ObjectHideFlags: 0
@@ -10564,6 +10603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580f3aee2773b644a938a13a970582d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 5467285085103118176}
 --- !u!135 &6211905507001372341
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10801,7 +10841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dcb90f90eded8944b51ca59a08046c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineObject: {fileID: 0}
+  _player: {fileID: 5467285085103118176}
 --- !u!1 &6211905507723780256
 GameObject:
   m_ObjectHideFlags: 0
@@ -10947,7 +10987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dcb90f90eded8944b51ca59a08046c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineObject: {fileID: 0}
+  _player: {fileID: 5467285085103118176}
 --- !u!23 &6211905507914320383
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11143,7 +11183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dcb90f90eded8944b51ca59a08046c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineObject: {fileID: 0}
+  _player: {fileID: 5467285085103118176}
 --- !u!1 &6211905509025640386
 GameObject:
   m_ObjectHideFlags: 0

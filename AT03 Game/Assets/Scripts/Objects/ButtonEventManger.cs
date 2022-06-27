@@ -13,6 +13,7 @@ public class ButtonEventManger : MonoBehaviour, IInteractable
     private bool disableSCR;
     private int totalMax;
     private Outline outlineObject;
+    [SerializeField] private GameObject _player;
 
     private List<GameObject> listChildren = new List<GameObject>();
     public int numChild { get; private set; }
@@ -34,22 +35,6 @@ public class ButtonEventManger : MonoBehaviour, IInteractable
     private void Start()
     {
         disableSCR = false;
-    }
-
-    private void OnMouseOver()
-    {
-        //Debug.Log("LOOK AT ME");
-        if (outlineObject.enabled == false)
-        {
-            outlineObject.enabled = true;
-        }
-    }
-    private void OnMouseExit()
-    {
-        if (outlineObject.enabled == true)
-        {
-            outlineObject.enabled = false;
-        }
     }
 
     private int AddTotal(int num)
@@ -78,6 +63,15 @@ public class ButtonEventManger : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        if(Vector3.Distance(transform.position, _player.transform.position) < 3f)
+        {
+            outlineObject.enabled = true;
+        }
+        else
+        {
+            outlineObject.enabled = false;
+        }
+        
         if (disableSCR)
         {
             this.gameObject.SetActive(false);

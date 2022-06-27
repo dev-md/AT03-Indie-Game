@@ -94,4 +94,9 @@ public class PlayerAiming : MonoBehaviour
 			punchAngleVel = Vector2.zero;
 		}
 	}
+
+	public void ChangeSen(float sense)
+    {
+		sensitivityMultiplier = sense;
+	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 //------------------------------------------------------
-public class EnemySCR : FiniteStateMachine
+public class EnemySCR : FiniteStateMachine, IInteractable
 {
     public Bounds bounds;
     //245
@@ -84,19 +84,30 @@ public class EnemySCR : FiniteStateMachine
     {
         base.Update();
 
-        if ((Input.GetButtonDown("Use")) && (canStunEm == true))
+        if (isStunned == false)
         {
-            //Debug.Log("Stunned");
-            SetState(enemyStunST);
-            isStunned = true;
-            canStunEm = false;
-            outlineObject.enabled = false;
-            stunCol.enabled = false;
-            StartCoroutine(StunTimer());
-            animator.SetBool("IsStunnedaa", true);
-            animator.SetBool("IsMoving", false);
-            animator.SetBool("IsChasing", false);
+            if (
+                (canStunEm == false) &&
+                (Vector3.Distance(transform.position, playerTran.position) <= viewRadius)
+                )
+
+            {
+                outlineObject.enabled = true;
+                canStunEm = true;
+            }
         }
+        else
+        {
+            if (
+            (canStunEm == true) ||
+            (Vector3.Distance(transform.position, playerTran.position) > viewRadius)
+            )
+            {
+                outlineObject.enabled = false;
+                canStunEm = false;
+            }
+        }
+
     }
 
     private IEnumerator StunTimer()
@@ -113,33 +124,6 @@ public class EnemySCR : FiniteStateMachine
         Gizmos.DrawWireCube(bounds.center, bounds.size);
     }
 
-    private void OnMouseOver()
-    {
-        //Debug.Log("LOOK AT ME");
-        if (isStunned == false)
-        {
-            if (
-                (canStunEm == false) &&
-                (Vector3.Distance(transform.position, playerTran.position) <= viewRadius)
-                )
-
-            {
-                outlineObject.enabled = true;
-                canStunEm = true;
-            }
-        }
-    }
-    private void OnMouseExit()
-    {
-        if (
-            (canStunEm == true) || 
-            (Vector3.Distance(transform.position, playerTran.position) > viewRadius)
-            )
-        { 
-            outlineObject.enabled = false;
-            canStunEm = false;
-        }
-    }
     public int ActiveGIGA(int num)
     {
         //Debug.Log(num);
@@ -152,6 +136,22 @@ public class EnemySCR : FiniteStateMachine
 
     }
 
+    public void OnInteract()
+    {
+        if (canStunEm == true)
+        {
+            //Debug.Log("Stunned");
+            SetState(enemyStunST);
+            isStunned = true;
+            canStunEm = false;
+            outlineObject.enabled = false;
+            stunCol.enabled = false;
+            StartCoroutine(StunTimer());
+            animator.SetBool("IsStunnedaa", true);
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("IsChasing", false);
+        }
+    }
 }
 
 //------------------------------------------------------

@@ -6,7 +6,7 @@ public class MenuNav : MonoBehaviour
 {
     public delegate void MenuInputDelegate(float axis);
     
-    [SerializeField] private float bufferTime = 0.05f;
+    [SerializeField] private float bufferTime = 0.5f;
 
     private float timer = -1;
     private int currentButtonIndex = 0;
@@ -66,11 +66,13 @@ public class MenuNav : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         #region timer functinoality
         if (timer < 0)
         {
-            if (Input.GetButtonUp("Vertical"))
+            if (Input.GetAxis("Vertical") != 0)
             {
+                //print("AHH");
                 float axis = Input.GetAxis("Vertical");
                 if (axis != 0)
                 {
