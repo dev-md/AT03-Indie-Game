@@ -92,7 +92,7 @@ public class MenuNav : MonoBehaviour
 
         if(SelectedButton != null)
         {
-            if (Input.GetButtonUp("Submit"))
+            if (Input.GetButtonDown("Submit"))
             {
                 SelectedButton.Active();
             }
