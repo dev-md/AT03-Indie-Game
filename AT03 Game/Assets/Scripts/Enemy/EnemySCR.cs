@@ -95,17 +95,16 @@ public class EnemySCR : FiniteStateMachine, IInteractable
                 outlineObject.enabled = true;
                 canStunEm = true;
             }
-        }
-        else
-        {
-            if (
-            (canStunEm == true) ||
-            (Vector3.Distance(transform.position, playerTran.position) > viewRadius)
-            )
+            else if (Vector3.Distance(transform.position, playerTran.position) > viewRadius)
             {
                 outlineObject.enabled = false;
                 canStunEm = false;
             }
+        }
+        else
+        {
+            outlineObject.enabled = false;
+            canStunEm = false;
         }
 
     }
@@ -367,6 +366,9 @@ public class EnemyChaseST : EnemyBHST
     public override void OnStateExit()
     {
         //Debug.Log("boo.");
+        _Instance.animator.SetBool("IsChasing", false);
+        _Instance.animator.SetBool("IsMoving", false);
+        _Instance.animator.SetBool("IsStunnedaa", false);
     }
 
     public override void OnStateUpdate()
